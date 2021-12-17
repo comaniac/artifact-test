@@ -23,11 +23,9 @@ jobs:
         run: echo "`date +%s`" > result2.log
 
       - name: Download Previous Reports
-        continue-on-error: true
-        uses: actions/download-artifact@v2
-        with:
-          name: reports
-          path: old_reports
+        run: |
+          curl -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/comaniac/artifact-test/actions/artifacts/127751913/zip
 
       - name: Save Reports
         uses: actions/upload-artifact@v2
