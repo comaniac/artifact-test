@@ -27,6 +27,7 @@ jobs:
         with:
           name: report_artifacts
           path: old_reports
+          continue-on-error: true
 
       - name: Save Reports
         uses: actions/upload-artifact@v2
