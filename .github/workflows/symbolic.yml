@@ -1,0 +1,34 @@
+# This workflow demonstrates that how to build and install
+# something (ccache in this example) in the workflow container
+# using symbolic link. The requirement comes when you work on
+# a Github Action in a container, Github Action does not allow
+# you to access the directories outside of the workspace.
+name: InstallInContainerViaSymbolicLink
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    container:
+        image: ubuntu:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends \
+                  make cmake wget unzip libtinfo-dev libz-dev libcurl4-openssl-dev g++ sudo
+      - name: Create symbolic link
+        # Create a symbolic to /tmp so that we are able to do anything in it.
+        run: |
+          ln -s /tmp .
+          ls -lR .
+      - name: Checkout
+        # This step will fail if the path is directly set to "/tmp".
+        uses: actions/checkout@v2
+        with:
+          path: ./tmp
+
