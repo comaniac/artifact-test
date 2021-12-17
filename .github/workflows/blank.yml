@@ -24,8 +24,8 @@ jobs:
 
       - name: Download Previous Reports
         run: |
-          curl -L -o reports.zip \
-          https://api.github.com/repos/comaniac/artifact-test/actions/artifacts/127751913/zip
+          bash download.sh
+          unzip reports.zip -d old_reports
 
       - name: Save Reports
         uses: actions/upload-artifact@v2
