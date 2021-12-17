@@ -26,7 +26,7 @@ jobs:
         continue-on-error: true
         uses: actions/download-artifact@v2
         with:
-          name: report_artifacts
+          name: reports
           path: old_reports
 
       - name: Save Reports
