@@ -24,7 +24,7 @@ jobs:
 
       - name: Download Previous Reports
         run: |
-          curl -H "Accept: application/vnd.github.v3+json" \
+          curl -L -o reports.zip \
           https://api.github.com/repos/comaniac/artifact-test/actions/artifacts/127751913/zip
 
       - name: Save Reports
