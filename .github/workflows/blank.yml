@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo "`date +%s`" > result1.log
+      - name: Run a one-line script
+        run: echo "`date +%s`" > result2.log
+
+      - name: Download Previous Reports
+        uses: actions/download-artifact@v2
+        with:
+          name: report_artifacts
+          path: old_reports
+
+      - name: Save Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: reports
+          path: result*.log
+          retention-days: 1
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          ls -R .
