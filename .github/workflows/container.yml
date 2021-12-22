@@ -13,14 +13,20 @@ jobs:
             working-directory: job1
     steps:
       - name: Show
+        working-directory: job1
         run: ls -lR .
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+            path: job1
       - name: Run a one-line script
+        working-directory: job1
         run: echo "`date +%s`" > result_job1.log
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
           name: result_job1
-          path: result_job1.log
+          path: job1/result_job1.log
       - name: Show
         run: ls -lR .
   job2:
