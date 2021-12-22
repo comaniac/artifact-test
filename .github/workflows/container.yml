@@ -10,7 +10,7 @@ jobs:
         image: ubuntu:latest
     steps:
       - name: Show
-        run: ls -lR .; mkdir job1
+        run: ls -lR .
       - name: Checkout
         uses: actions/checkout@v2
         with:
