@@ -8,9 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
         image: ubuntu:latest
-    defaults:
-        run:
-            working-directory: job1
     steps:
       - name: Show
         working-directory: job1
