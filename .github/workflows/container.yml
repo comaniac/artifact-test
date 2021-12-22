@@ -10,8 +10,7 @@ jobs:
         image: ubuntu:latest
     steps:
       - name: Show
-        working-directory: job1
-        run: ls -lR .
+        run: ls -lR .; mkdir job1
       - name: Checkout
         uses: actions/checkout@v2
         with:
