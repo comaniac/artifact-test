@@ -27,14 +27,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run a one-line script
-        run: echo "`date +%s`" > result1.log
+        run: echo "`date +%s`" > result_job2_1.log
       - name: Run a one-line script
-        run: echo "`date +%s`" > result2.log
+        run: echo "`date +%s`" > result_job2_2.log
 
       - name: Download Previous Reports
         continue-on-error: true
         run: |
-          bash download.sh
+          python3 download.py reports 6c566b5b6d3dce17e0e6511892ea246a20fc69e5
           unzip reports.zip -d old_reports
       - name: Show
         run: ls -lR .
@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: reports
-          path: result*.log
+          path: result_job2*.log
           retention-days: 1
       - name: Show
         run: ls -lR .
