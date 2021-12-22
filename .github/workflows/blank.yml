@@ -7,6 +7,8 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+      - name: Show
+        run: ls -lR .
       - name: Run a one-line script
         run: echo "`date +%s`" > result_job1.log
       - name: Upload
@@ -14,10 +16,14 @@ jobs:
         with:
           name: result_job1
           path: result_job1.log
+      - name: Show
+        run: ls -lR .
   job2:
     needs: job1
     runs-on: ubuntu-latest
     steps:
+      - name: Show
+        run: ls -lR .
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run a one-line script
@@ -30,17 +36,20 @@ jobs:
         run: |
           bash download.sh
           unzip reports.zip -d old_reports
+      - name: Show
+        run: ls -lR .
       - name: Download job1 Reports
         continue-on-error: true
         uses: actions/download-artifact@v2
         with:
           name: result_job1
+      - name: Show
+        run: ls -lR .
       - name: Save Reports
         uses: actions/upload-artifact@v2
         with:
           name: reports
           path: result*.log
           retention-days: 1
-      - name: Run a multi-line script
-        run: |
-          ls -R .
+      - name: Show
+        run: ls -lR .
