@@ -13,9 +13,19 @@ jobs:
         uses: actions/checkout@v2
       - name: Symbolic link
         run: |
-          ln -s /bin .
+          ln -s /tmp .
           ls -lR .
-      - name: Add something
-        run: echo "`date +%s`" > ./bin/result_job1.log
+      - name: Build ccache
+        run: |
+          cd ./tmp
+          wget https://github.com/ccache/ccache/releases/download/v4.0/ccache-4.0.tar.gz
+          tar -xzf ccache-4.0.tar.gz
+          cd ccache-4.0
+          mkdir build; cd build
+          cmake -DZSTD_FROM_INTERNET=ON -DCMAKE_BUILD_TYPE=Release ..
+          make
+          sudo make install
       - name: Show
-        run: ls -lR ./bin
+        run: |
+          which ccache
+          ccache --help
