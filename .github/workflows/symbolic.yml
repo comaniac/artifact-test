@@ -20,12 +20,16 @@ jobs:
         run: |
           ln -s /tmp .
           ls -lR .
+      - name: Checkout ccache
+        uses: actions/checkout@v2
+        with:
+          path: ./tmp
+          repository: ccache/ccache
       - name: Build ccache
         run: |
+          ls -lR .
           cd ./tmp
-          wget https://github.com/ccache/ccache/releases/download/v4.0/ccache-4.0.tar.gz --no-check-certificate
-          tar -xzf ccache-4.0.tar.gz
-          cd ccache-4.0
+          pwd
           mkdir build; cd build
           cmake -DZSTD_FROM_INTERNET=ON -DCMAKE_BUILD_TYPE=Release ..
           make -j; make install
