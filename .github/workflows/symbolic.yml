@@ -11,6 +11,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -q --no-install-recommends \
+                  make cmake wget unzip libtinfo-dev libz-dev libcurl4-openssl-dev g++ sudo
       - name: Symbolic link
         run: |
           ln -s /tmp .
@@ -18,13 +23,12 @@ jobs:
       - name: Build ccache
         run: |
           cd ./tmp
-          wget https://github.com/ccache/ccache/releases/download/v4.0/ccache-4.0.tar.gz
+          wget https://github.com/ccache/ccache/releases/download/v4.0/ccache-4.0.tar.gz --no-check-certificate
           tar -xzf ccache-4.0.tar.gz
           cd ccache-4.0
           mkdir build; cd build
           cmake -DZSTD_FROM_INTERNET=ON -DCMAKE_BUILD_TYPE=Release ..
-          make
-          sudo make install
+          make -j; make install
       - name: Show
         run: |
           which ccache
