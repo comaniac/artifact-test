@@ -18,8 +18,8 @@ jobs:
         # Use the Python script to download the cache from the last run.
         continue-on-error: true
         run: |
-          python3 download.py ccache ${{ secrets.MY_TOKEN }}
-          unzip ccache.zip -d .ccache
+          python3 download.py ccache-cache ${{ secrets.MY_TOKEN }}
+          unzip ccache-cache.zip -d .ccache
           ls -lR .
       - name: Config ccache
         run: |
@@ -28,7 +28,7 @@ jobs:
           # Reset the cache stats.
           ccache --zero-stats
           # Display the current stats. You should see "files in cache = 0"
-          # at the first run, or "files in cache = 1" starting from the second run.
+          # at the first run, or "files in cache = 2" starting from the second run.
           ccache -s
       - name: Compile
         run: |
