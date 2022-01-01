@@ -1,0 +1,65 @@
+# This workflow demonstrates that how to use artifacts at
+# the subsequent jobs in the same run, and
+# the other runs of this workflow.
+name: UseArtifactsCrossJobsAndRuns
+
+on:
+  # Manual trigger for testing.
+  workflow_dispatch:
+
+jobs:
+  # The first job creates a file and uploads it to be an artifact.
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ls
+        run: ls -lR .
+      - name: Create an artifact file
+        run: echo "`date +%s`" > result_job1.log
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact_job1
+          path: result_job1.log
+      - name: ls
+        run: ls -lR .
+
+  # The second job takes the artifact of the first job of this run,
+  # as well as the artifact of the second job from the last run.
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: ls
+        run: ls -lR .
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create artifact files
+        run: |
+          echo "`date +%s`" > result_job2_1.log
+          echo "`date +%s`" > result_job2_2.log
+      - name: Download Previous Artifacts
+        # Use the Python script to download the artifact from the last run.
+        continue-on-error: true
+        run: |
+          python3 download.py artifact_job2 ${{ secrets.MY_TOKEN }}
+          unzip artifact_job2.zip -d old_artifact
+          ls -lR .
+      - name: Download job1 Artifacts
+        # Download the artifact from job1 in this run.
+        continue-on-error: true
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact_job1
+      - name: ls
+        run: ls -lR .
+      - name: Upload
+        # Upload the new created artifacts for the next run.
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact_job2
+          path: result_job2*.log
+          retention-days: 1
+      - name: ls
+        run: ls -lR .
+

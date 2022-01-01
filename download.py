@@ -8,7 +8,7 @@ def main(artifact_name, token):
     """Download the latest artifact."""
     os.system(
         f"curl -vLJO -H 'Authorization: token {token}' "
-        "https://api.github.com/repos/comaniac/artifact-test/actions/artifacts"
+        "https://api.github.com/repos/comaniac/github-action-samples/actions/artifacts"
     )
 
     if not os.path.exists("artifacts"):
