@@ -10,7 +10,7 @@ on:
 
 jobs:
   job1:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     container:
         image: ubuntu:latest
     steps:
