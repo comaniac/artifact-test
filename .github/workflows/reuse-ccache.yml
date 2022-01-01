@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install ccache
-        run: apt install ccache
+        run: sudo apt install ccache
       - name: Recover Cache
         # Use the Python script to download the cache from the last run.
         continue-on-error: true
