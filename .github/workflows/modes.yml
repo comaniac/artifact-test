@@ -1,0 +1,24 @@
+# This workflow demonstrates that how to run
+# different steps based on different modes.
+name: MultipleModes
+
+on:
+  # Manual trigger for testing.
+  workflow_dispatch:
+    inputs:
+      mode:
+        required: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mode 1
+        if: ${{ inputs.mode }} == "mode1"
+        run: echo "Mode 1"
+      - name: Mode 2
+        if: ${{ inputs.mode }} == "mode2"
+        run: echo "Mode 2"
+      - name: Mode 3
+        if: ${{ inputs.mode }} == "mode3"
+        run: echo "Mode 3"
