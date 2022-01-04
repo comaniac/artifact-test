@@ -31,7 +31,7 @@ jobs:
       - name: Check day
         id: check_day
         run: |
-          if [ $(date +'%U') -eq "00" ]; then
+          if [ $(date +'%u') -eq "0" ]; then
             echo "::set-output name=is_sunday::true"
           else
             echo "::set-output name=is_sunday::false"
