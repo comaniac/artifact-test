@@ -13,12 +13,18 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
+      - name: Mode
+        run: |
+          echo "${{ inputs.mode }}"
+          echo "${{ inputs.mode == 'mode1' }}"
+          echo "${{ inputs.mode == 'mode2' }}"
+          echo "${{ inputs.mode == 'mode3' }}"
       - name: Mode 1
-        if: ${{ inputs.mode == 'mode1'}}
+        if: ${{ inputs.mode == 'mode1' }}
         run: echo "Mode 1"
       - name: Mode 2
-        if: ${{ inputs.mode == 'mode2'}}
+        if: ${{ inputs.mode == 'mode2' }}
         run: echo "Mode 2"
       - name: Mode 3
-        if: ${{ inputs.mode == 'mode3'}}
+        if: ${{ inputs.mode == 'mode3' }}
         run: echo "Mode 3"
