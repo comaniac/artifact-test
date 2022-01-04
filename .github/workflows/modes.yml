@@ -28,3 +28,13 @@ jobs:
       - name: Mode 3
         if: ${{ github.event.inputs.mode == 'mode3' }}
         run: echo "Mode 3"
+      - name: Check day
+        id: check_day
+        run: |
+          if [ $(date +'%U') -eq "00" ]; then
+            echo "::set-output name=is_sunday::true"
+          else
+            echo "::set-output name=is_sunday::false"
+          fi
+      - name: Echo
+        run: echo "Is Sunday? ${{ steps.check_day.outputs.is_sunday }}"
