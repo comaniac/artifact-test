@@ -1,0 +1,16 @@
+# This workflow demonstrates that how to pass image name to container.
+name: EchoImageName
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    container:
+        image: ubuntu:latest
+    env:
+      IMAGE_NAME: ubuntu:latest
+    steps:
+      - name: Use Image Name
+        run: echo "${{ env.IMAGE_NAME }}"
