@@ -31,10 +31,11 @@ jobs:
       - name: Check day
         id: check_day
         run: |
+          echo "Day: $(date +'%u')"
           if [ $(date +'%u') -eq "1" ]; then
-            echo "::set-output name=is_modday::true"
+            echo "::set-output name=is_monday::true"
           else
-            echo "::set-output name=is_modday::false"
+            echo "::set-output name=is_monday::false"
           fi
       - name: Echo
-        run: echo "Is Modday? ${{ steps.check_day.outputs.is_modday }}"
+        run: echo "Is Modday? ${{ steps.check_day.outputs.is_monday }}"
