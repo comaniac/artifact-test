@@ -26,3 +26,5 @@ All experimented actions will be added to this README with descriptions, so feel
 **Workflow File**: `.github/workflows/modes.yml`
 
 **Description:** This workflow demonstrates how to execute steps conditionally.
+
+### Environment Variables
