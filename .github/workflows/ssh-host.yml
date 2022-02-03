@@ -1,0 +1,15 @@
+# This workflow is used to let you ssh the CI container
+# and try everything.
+name: SSH-Host
+
+on:
+  # Manual trigger for testing.
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
