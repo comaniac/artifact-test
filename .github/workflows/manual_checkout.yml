@@ -1,0 +1,29 @@
+# This workflow demonstrates manual checkout.
+name: ManualCheckout
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: |
+          echo "github.ref: ${{ github.ref }}"
+          echo "github.repository: ${{ github.repository }}"
+          echo "github.sha: ${{ github.sha }}"
+          echo "github.event.number: ${{ github.event.number }}"
+          echo "github.event.pull_request.head.sha: ${{ github.event.pull_request.head.sha }}"
+          echo "github.event.pull_request.head.repo.full_name: ${{ github.event.pull_request.head.repo.full_name }}"
+      - name: Checkout
+        run: |
+          git clone https://github.com/comaniac/github-action-samples.git
+          git remote set-url origin https://github.com/comaniac/github-action-samples.git
+          git fetch origin ${{ github.ref }}:working
+          git checkout working
+          git rev-parse HEAD
