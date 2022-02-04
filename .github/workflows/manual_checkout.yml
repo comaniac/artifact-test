@@ -23,6 +23,7 @@ jobs:
       - name: Checkout
         run: |
           git clone https://github.com/comaniac/github-action-samples.git
+          cd github-action-samples
           git remote set-url origin https://github.com/comaniac/github-action-samples.git
           git fetch origin ${{ github.ref }}:working
           git checkout working
