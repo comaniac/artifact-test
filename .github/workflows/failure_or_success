@@ -1,0 +1,31 @@
+
+   
+# This workflow demonstrates that how to make use of failure() and success()
+name: FailureOrSuccess
+
+on:
+  # Manual trigger for testing.
+  workflow_dispatch:
+    inputs:
+      mode:
+        required: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mode
+        continue-on-error: true
+        run: |
+          echo "${{ github.event.inputs.mode }}"
+          if [ "${{ github.event.inputs.mode }}" -eq "fail" ]; then
+            exit 1
+          else
+            exit 0
+          fi
+      - name: RunWhenFailure
+        if: failure()
+        run: echo "Failure"
+      - name: RunWhenSuccess
+        if: success()
+        run: echo "Success"
