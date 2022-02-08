@@ -11,6 +11,8 @@ jobs:
   # The first job creates a file and uploads it to be an artifact.
   job1:
     runs-on: ubuntu-latest
+    outputs:
+      my_output: "output_from_job1"
     steps:
       - name: ls
         run: ls -lR .
@@ -30,6 +32,8 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     steps:
+      - name: Show output
+        run: echo "${{ needs.job1.outputs.my_output }}"
       - name: ls
         run: ls -lR .
       - name: Checkout
