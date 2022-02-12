@@ -6,9 +6,6 @@ name: Event
 on:
   # Manual trigger for testing.
   workflow_dispatch:
-    inputs:
-      mode:
-        required: true
 
 jobs:
   run:
@@ -17,7 +14,7 @@ jobs:
       - name: Event
         run: |
          echo "${{ github.event_name }}"
-         echo "event_name==push? ${{ github.event_name == 'push' }}"
-         if [ ${{ github.event_name == 'push' }} == "false" ]; then
-           echo "Matched false"
+         echo "event_name==workflow_dispatch? ${{ github.event_name == 'workflow_dispatch' }}"
+         if [ ${{ github.event_name == 'workflow_dispatch' }} == "true" ]; then
+           echo "Matched true"
          fi
