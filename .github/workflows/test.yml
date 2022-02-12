@@ -16,4 +16,8 @@ jobs:
     steps:
       - name: Event
         run: |
+         echo "${{ github.event_name }}"
          echo "event_name==push? ${{ github.event_name == 'push' }}"
+         if [ ${{ github.event_name == 'push' }} == "false" ]; then
+           echo "Matched false"
+         fi
