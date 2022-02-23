@@ -11,11 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_BATCH_ACCESS_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_BATCH_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
