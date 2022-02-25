@@ -25,10 +25,10 @@ jobs:
           echo "::set-output name=temp::${temp}"
       - name: Compare Empty
         run: |
-          if [[ "${{ steps.set.outputs.temp }}" == "" ]]; then
-            echo "temp is empty"
-          else
+          if [[ "${{ steps.set.outputs.temp }}" != "" ]]; then
             echo "temp is not empty: ${{ steps.set.outputs.temp }}"
+          else
+            echo "temp is empty"
           fi
       - name: Mode 1
         if: ${{ github.event.inputs.mode == 'mode1' }}
