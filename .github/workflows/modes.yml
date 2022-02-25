@@ -15,6 +15,7 @@ jobs:
     steps:
       - name: Mode
         id: set
+        continue-on-error: true
         run: |
           echo "${{ github.event.inputs.mode }}"
           echo "${{ github.event.inputs.mode == 'mode1' }}"
