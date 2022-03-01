@@ -29,7 +29,7 @@ jobs:
         run: |
           if [ "${{ needs.job1.result}}" == "success" ]; then
             echo "Job 1 success"
-          fi
+          fi;
           if [ "${{ needs.job1.result}}" == "success" && "${{ needs.job3.result}}" != "success" ]; then
             echo "Job 1 success but job 3 failed"
           fi
