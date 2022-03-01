@@ -27,11 +27,11 @@ jobs:
     steps:
       - name: Test
         run: |
-          if [ "${{ needs.job1.result}}" == "success" ]; then
-            echo "Job 1 success"
-          fi;
-          if [ "${{ needs.job1.result}}" == "success" && "${{ needs.job3.result}}" != "success" ]; then
-            echo "Job 1 success but job 3 failed"
+          if [ "${{ needs.job1.result}}" == "success" &&
+               "${{ needs.job2.result}}" == "success" &&
+               "${{ needs.job3.result}}" == "success" ]; then
+            echo "All success"
+          else
+            echo "One or more failed"
           fi
           echo "finalized"
-    
