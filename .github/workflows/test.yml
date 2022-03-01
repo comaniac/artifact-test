@@ -25,13 +25,18 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Test
+      - name: Name
+        id: name
         run: |
           if [[ "${{ needs.job1.result}}" == "success" &&
                 "${{ needs.job2.result}}" == "success" &&
                 "${{ needs.job3.result}}" == "success" ]]; then
-            echo "All success"
+            ret="success"
+            echo "::set-output name=msg::${ret}-green"
           else
-            echo "One or more failed"
+            ret="success"
+            echo "::set-output name=msg::${ret}-red"
           fi
-          echo "finalized"
+      - name: Test
+        run: |
+         echo "Message: ${{ steps.name.outputs.msg }}"
