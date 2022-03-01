@@ -32,10 +32,10 @@ jobs:
                 "${{ needs.job2.result}}" == "success" &&
                 "${{ needs.job3.result}}" == "success" ]]; then
             ret="success"
-            echo "::set-output name=msg::${ret}-green"
+            echo "::set-output name=msg::${ret} green"
           else
             ret="success"
-            echo "::set-output name=msg::${ret}-red"
+            echo "::set-output name=msg::${ret} red"
           fi
       - name: Test
         run: |
