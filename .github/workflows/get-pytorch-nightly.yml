@@ -15,8 +15,8 @@ jobs:
         id: update
         run: |
           python3 -m pip install -U --force-reinstall pip
-          v1=$(python3 -m pip index versions torch --pre -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html | grep LATEST)
-          echo "v1: $v1"
+          python3 -m pip index versions torch --pre -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
+          python3 -m pip index versions torch --pre -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html | grep LATEST
           version=$(python3 -m pip index versions torch --pre -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html | grep LATEST | awk '{print $2}' | awk -F '+' '{print $1}')
           echo "Latest PyTorch nightly version: $version"
           echo "::set-output name=version::${version}"
