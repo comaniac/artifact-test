@@ -1,0 +1,24 @@
+name: Update Pinned PyTorch Nightly
+on:
+  schedule:
+    # Note that cron uses UTC times and weeks start from Sunday (0).
+    # We check PyTorch nightly version every month.
+    - cron:  '0 13 1 * *'
+
+  workflow_dispatch:
+
+jobs:
+  update-n-send-PR:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update pinned PyTorch nightly version
+        id: update
+        run: |
+          python3 -m pip install -U --force-reinstall pip
+          python3 -m pip index versions torch --pre -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html | grep LATEST | awk '{print $2}' | awk -F '+' '{print $1}'
+          version=$(python3 -m pip index versions torch --pre -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html | grep LATEST | awk '{print $2}' | awk -F '+' '{print $1}')
+          echo "Latest PyTorch nightly version: $version"
+          echo "::set-output name=version::${version}"
+      - name: Echo
+        run: |
+          echo "Latest PyTorch nightly version: ${{ steps.update.outputs.version }}"
