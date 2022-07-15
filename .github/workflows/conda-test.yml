@@ -14,7 +14,7 @@ jobs:
         with:
           activate-environment: tlcpack-build
           channel-priority: strict
-          environment-file: conda-environment.yaml
+          environment-file: conda-env.yaml
           auto-activate-base: false
           use-only-tar-bz2: true
       - name: Setup tmate session
