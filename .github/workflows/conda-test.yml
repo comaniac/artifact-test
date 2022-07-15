@@ -1,0 +1,21 @@
+# This workflow is used to debug conda env.
+name: Conda-Env
+
+on:
+  # Manual trigger for testing.
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: tlcpack-build
+          channel-priority: strict
+          environment-file: conda-environment.yaml
+          auto-activate-base: false
+          use-only-tar-bz2: true
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
