@@ -2,6 +2,8 @@
 name: Check-Env-Variables
 on:
   push:
+    branches:
+      - patch*
 
   pull_request_target:
 
