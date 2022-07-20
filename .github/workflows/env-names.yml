@@ -2,8 +2,7 @@
 name: Check-Env-Variables
 on:
   push:
-    branches:
-      - main
+
   pull_request_target:
 
   workflow_dispatch:
